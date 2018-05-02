@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="styles/style.css">
+  <title>Document</title>
+</head>
+
+<body class="flex column h-center">
+
+
+  <!-- <embed src="udio/horror-atmosfernaya-muzyka.mp3" width="70" height="45" align="left" hidden="true" autostart="False" loop="True">
+ -->
+ <section id="" class="profiles flex column h-center hide">
+  <div class="container-dialog">
+
+    <div class="dialog-buttons-container">
+        <button class="button-blood">Yes</button>
+        <button class="button-blood">No</button>
+    </div>
+  </div>
+</section>
+  <nav id="navBar" class="nav-bar flex sb effect-down hide">
+    <button id="btnShowRatingSection" class="button-blood hide">Rating table</button>
+    <button id="btnPreviousSection" class="button-blood hide">Back</button>
+    <button id="btnShowRulesSection" class="button-blood">Rules</button>
+    <button id="btnShowProfiles" class="button-blood">Select profile</button>
+
+    <span id="gameTime" class="flex game-time hide">00:00:00</span>
+    <div id="buttonMenuGame" class="button-menu flex v-center hide">
+      <span id="userName">Artur</span>
+      <img src="images/navbar/menu-avatar.png" width="43" height="44" alt="" srcset="">
+      <ul id="menuGameSettings" class="menu-settings flex column hide">
+        <li class="hide">Resume</li>
+        <li class="hide">Rules</li>
+        <li id="btnNewGame">New game</li>
+        <li class="hide">Log out</li>
+      </ul>
+    </div>
+  </nav>
+
+  <section id="rules" class="rules">
+
+    <div class="flex column h-center">
+      <h4>How to play:</h4>
+      <p class="effect-down">
+        Memory is counter game where the objects to find pairs.
+        <br /> When the game begins, all pictures are hidden.
+      </p>
+      <h4>To play:</h4>
+    </div>
+
+    <div class="flex column h-center effect-up">
+      <ol>
+        <li>1. Select two cards to try match the pictures</li>
+        <li>2. If you match the pictures you can go again</li>
+        <li>3. If they don't match it is the computer turn them</li>
+        <li>4. The player that finds all pairs wins!</li>
+        <li>5. Have Fun!</li>
+      </ol>
+    </div>
+
+    <div class="flex v-center ">
+      <a id="btnContinue" class="button-blood">Continue</a>
+    </div>
+
+  </section>
+
+  <section id="userForm" class="user-form flex container column hide">
+    <form method="POST" id="user_form" action="javascript:void(null);" class="flex container column">
+      <div class="form-group flex column">
+        <label for="">Last Name:</label>
+        <input type="text" placeholder="Last Name" name="lastName" required>
+      </div>
+      <div class="form-group flex column">
+        <label for="">First Name:</label>
+        <input type="text" placeholder="First Name" name="firstName" required>
+      </div>
+      <div class="form-group flex column">
+        <label for="">Email:</label>
+        <input type="email" placeholder="Email" name="email" required>
+      </div>
+
+      <button id="btnSubmitForm" class="button-blood" type="submit">Create profile</button>
+    </form>
+  </section>
+
+  <section id="profilesSection" class="profiles flex column h-center hide">
+    <div class="profiles-container">
+      <header class="flex">
+        <a id="btnHideCloseProfiles" class="button-blood">Close</a>
+      </header>
+
+      <table id="profilesTable" class="profiles-table effect-show">
+        <tr class="">
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Email</th>
+        </tr>
+      </table>
+
+      <footer class="flex">
+        <button id="buttonLoadProfile" class="button-blood hide" disabled>Load Profile</button>
+      </footer>
+    </div>
+  </section>
+
+  <section id="settingsWrappers" class="settings-wrappers flex column h-center hide">
+    <h4 class="section-title">Choose wrapper</h4>
+    <div class="wrappers-slider flex">
+      <button id="buttonSlideLeft" class="button-slide-left"></button>
+      <ul id="listWrappers" class="list-wrappers flex"></ul>
+      <button id="buttonSlideRight" class="button-slide-right"></button>
+    </div>
+    <button id="buttonSetWrapper" class="button-blood button-blink hide">Continue...</button>
+  </section>
+
+  <section id="settingsLevel" class="settings-level flex column h-center hide">
+    <h4 class="section-title">Choose level</h4>
+    <ul id="listLevels" class="list-levels flex column">
+      <li>
+        <button class="button-blood" level="E">EASY</button>
+      </li>
+      <li>
+        <button class="button-blood" level="M">MEDIUM</button>
+      </li>
+      <li>
+        <button class="button-blood" level="H">HARD</button>
+      </li>
+    </ul>
+    <button id="buttonStartGame" class="button-blood hide">Start Game</button>
+  </section>
+
+  <section id="ratingSection" class="profiles flex column h-center hide">
+    <div class="rating-container">
+      <header class="flex rating-header">
+        <div id="ratingLevelButtons" class="rating-level-buttons">
+          <button level="E" class="button-blood button-selected">Easy</button>
+          <button level="M" class="button-blood">Medium</button>
+          <button level="H" class="button-blood">Hard</button>
+        </div>
+
+        <button id="btnHideCloseRating" class="button-blood">Close</button>
+      </header>
+
+      <table id="ratingTable" class="profiles-table effect-show">
+        <tr class="">
+          <th>N.</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Wrapper</th>
+          <th>Time</th>
+        </tr>
+      </table>
+
+      <footer class="flex">
+        <button id="buttonLoadProfile" class="button-blood hide" disabled>Load Profile...</button>
+      </footer>
+    </div>
+  </section>
+
+  <section id="gameArea" class="game-area flex hide"></section>
+  <div id="rain" class="rain hide"></div>
+
+
+
+  <script src="js/configGame.js"></script>
+
+  <script src="js/SoundPlayer.js"></script>
+  <script src="js/Stopwatch.js"></script>
+
+  <script src="js/Player.js"></script>
+  <script src="js/Card.js"></script>
+
+  <script src="js/Storage.js"></script>
+  <script src="js/Router.js"></script>
+
+  <script src="js/Controller.js"></script>
+
+  <script src="js/ModuleProfiles.js"></script>
+  <script src="js/ModuleNavbar.js"></script>
+  <script src="js/ModuleSettings.js"></script>
+  <script src="js/ModuleRating.js"></script>
+
+  <script src="js/GameArea.js"></script>
+
+  <script src="js/index.js"></script>
+</body>
+
+</html>
