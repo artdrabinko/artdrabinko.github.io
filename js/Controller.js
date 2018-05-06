@@ -78,23 +78,34 @@ class Controller {
       const subscriber = this.listSubscribers[index];
       switch (action) {
         case "start-game":
-          if(subscriber.action == "start-game"){
+          if (subscriber.action == "start-game") {
             const notification = {
               "action": "start-game",
               "notice": "game was started",
             }
-    
+
             subscriber['heandler'](notification);
           }
           console.log(action);
           break;
         case "all-settings-downloaded":
-          if(subscriber.action == "all-settings-downloaded"){
+          if (subscriber.action == "all-settings-downloaded") {
             const notification = {
               "action": "all-settings-downloaded",
               "notice": "all profile settings are downloaded!",
             }
-    
+
+            subscriber['heandler'](notification);
+          }
+          console.log(action);
+          break;
+        case "game-loaded":
+          if (subscriber.action == "game-loaded") {
+            const notification = {
+              "action": "game-loaded",
+              "notice": "Game-loaded you can play!",
+            }
+
             subscriber['heandler'](notification);
           }
           console.log(action);
@@ -103,7 +114,7 @@ class Controller {
           console.log("i don't now this action!");
           break;
       }
-      
+
       if (subscriber["action"] === "ADDED_PLAYER") {
         const notification = {
           "action": "ADDED_PLAYER",

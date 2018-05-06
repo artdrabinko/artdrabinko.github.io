@@ -46,7 +46,7 @@ class Router {
   }
 
   routToGameArea(){
-    gameArea.startGame();
+    this.routToSection(this.settingsLevel);
   }
 
 

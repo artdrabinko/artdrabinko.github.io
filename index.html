@@ -11,19 +11,19 @@
 
 <body class="flex column h-center">
 
-
-  <!-- <embed src="udio/horror-atmosfernaya-muzyka.mp3" width="70" height="45" align="left" hidden="true" autostart="False" loop="True">
- -->
- <section id="" class="profiles flex column h-center hide">
-  <div class="container-dialog">
-
-    <div class="dialog-buttons-container">
-        <button class="button-blood">Yes</button>
-        <button class="button-blood">No</button>
+  <section id="confirmDialog" class="dialog-confirm flex column h-center hide">
+    <div class="dialog-container effect-dialog-show">
+      <p id="dialogText">
+        Question?
+      </p>
+      <div class="dialog-buttons-container flex">
+        <button id="btnYes" class="button-blood">Yes</button>
+        <button id="btnNo" class="button-blood">No</button>
+      </div>
     </div>
-  </div>
-</section>
-  <nav id="navBar" class="nav-bar flex sb effect-down hide">
+  </section>
+
+  <nav id="navBar" class="nav-bar flex effect-down hide">
     <button id="btnShowRatingSection" class="button-blood hide">Rating table</button>
     <button id="btnPreviousSection" class="button-blood hide">Back</button>
     <button id="btnShowRulesSection" class="button-blood">Rules</button>
@@ -37,7 +37,7 @@
         <li class="hide">Resume</li>
         <li class="hide">Rules</li>
         <li id="btnNewGame">New game</li>
-        <li class="hide">Log out</li>
+        <li id="btnLogout">Log out</li>
       </ul>
     </div>
   </nav>
@@ -162,13 +162,35 @@
     </div>
   </section>
 
+
+
+  <section id="caruselSection" class="game-history flex column hide">
+    <div class="game-history-container flex">
+      <div id="carusel" class="carusel-card-container card-size-large">
+        <div id="caruselFrontSide" class="caruser-wrapper"></div>
+        <div id="caruselBackside" class="carusel-backside"></div>
+      </div>
+      <p>
+        Remember! You should find all pairs of cards with the same image as quickly as possible.
+        <br/>Be the best, having opened all the cards for the shortest time and get a new pack of cards!</p>
+    </div>
+    <footer>
+      <div id="progessBar" class="progess-bar">
+        <div class="load-line"></div>
+        <p>Loading...</p>
+      </div>
+      <button id="buttonShowGameArena" class="button-blood button-blink hide">Press Enter to continue...</button>
+    </footer>
+  </section>
+
   <section id="gameArea" class="game-area flex hide"></section>
+
   <div id="rain" class="rain hide"></div>
 
 
-
+  
   <script src="js/configGame.js"></script>
-
+  <script src="js/ConfirmDialog.js"></script>
   <script src="js/SoundPlayer.js"></script>
   <script src="js/Stopwatch.js"></script>
 

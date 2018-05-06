@@ -1,7 +1,7 @@
 const soundPlayer = new SoundPlayer();
 
 const stopwatch = new Stopwatch();
-
+const confirmDialog = new ConfirmDialog();
 
 const storage = new Storage();
 const router = new Router();
@@ -18,39 +18,21 @@ const gameArea = new GameArea(controller);
 
 
 
-
 /*
-const gameA= document.getElementById('gameArea');
+const carusel = document.getElementById('carusel');
+let intrevalt = 5000;
 
-gameA.addEventListener('click', (e) =>{
-  const card = e.target.parentElement;
-  console.log(card);
-  console.log(card.classList.contains('game-card'));
-   ;
-  if(card.classList.contains('game-card')){
-    card.classList.add('effect-bounce');
-     setTimeout(()=>{
-      card.classList.add('hidden');
-     }, 1500);
-    // card1.classList.remove('active-card', 'selected', 'effect-bounce');
-   }else{
-     card1.classList.add('effect-bounce');
-     setTimeout(()=>{
-       card1.classList.add('hidden');
-     }, 1500);
-   }
-},false);
+setInterval(() => {
 
-card1.addEventListener('click', () => {
-  console.log("LOL");
-  
-  if(card1.classList.contains('effect-bounce')){
-   // card1.classList.remove('active-card', 'selected', 'effect-bounce');
-  }else{
-    card1.classList.add('effect-bounce');
-    setTimeout(()=>{
-      card1.classList.add('hidden');
-    }, 1500);
-  }
- 
-}, false);*/
+  const bgUrl = configWrappers['suicide squad']
+    .frontSideLinks[Math.floor(Math.random() * 6)];
+
+  document.getElementById('caruselBackside')
+    .style.backgroundImage = bgUrl;
+
+  carusel.classList.add('active-card');
+  setTimeout(() => {
+    carusel.classList.remove('active-card');
+  }, 2500);
+
+}, intrevalt);*/

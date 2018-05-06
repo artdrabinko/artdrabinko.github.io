@@ -26,11 +26,11 @@ class ModuleSettings {
 
     this.loadCardWrappers();
     this.subscribe();
+
     this.interval = setInterval(()=>{
       if(!this.slideIsRun){
         this.nextSlideWrapper();
       }
-
     }, 5000);
   }
 
@@ -93,6 +93,7 @@ class ModuleSettings {
       if (counter > 3) {
         cardWrapper.classList.add('hide');
       }
+
       this.listWrappers.appendChild(cardWrapper);
       counter++;
     }
@@ -173,13 +174,13 @@ class ModuleSettings {
     if (buttonId === 'buttonSlideRight' && !this.slideIsRun) {
       soundPlayer.playSlideWrapper();
       clearInterval(this.interval);
-      this.nextSlideWrapper()
+      this.nextSlideWrapper();
     }
 
     if (buttonId === 'buttonSlideLeft' && !this.slideIsRun) {
       soundPlayer.playSlideWrapper();
       clearInterval(this.interval);
-      this.previousSlideWrapper()
+      this.previousSlideWrapper();
     }
   }
 
@@ -220,6 +221,7 @@ class ModuleSettings {
     this.hideSettigsLevel();
     this.controller.notifySubscribers("start-game");
     this.controller.router.routToGameArea();
+    document.getElementById('settingsLevel').classList.add('hide');
   }
 
   setGameLevel(level) {

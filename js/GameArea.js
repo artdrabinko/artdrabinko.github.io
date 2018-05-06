@@ -5,6 +5,7 @@ class GameArea {
       countCards: 18,
       wrapperCards: "girls",
       cardsSizeStyle: "card-size-medium",
+      backgroundImage: "url('https://dcgamedevblog.files.wordpress.com/2014/09/bg1.jpg')",
     }
 
     this.counterRemainingCards = this.areaSettings.countCards;
@@ -12,21 +13,97 @@ class GameArea {
     this.controller = controller;
     this.gameArea = document.getElementById('gameArea');
 
-    //this.buttonStartGame = document.getElementById('buttonStartGame');
-    //this.buttonStartGame.addEventListener('click', this.startGame.bind(this), false);
+    this.buttonShowGameArena = document.getElementById('buttonShowGameArena');
+    this.buttonShowGameArena.addEventListener('click', this.showGameArena.bind(this), false);
 
     this.gameArea.addEventListener('click', this.heandlerClickArea.bind(this), false)
     this.rain = document.getElementById('rain');
 
     this.btnNewGame = document.getElementById("btnNewGame");
     this.btnNewGame.addEventListener('click', this.restartGame.bind(this), false);
+
+    this.carusel = document.getElementById('caruselSection');
+
+    this.subscribe();
   }
 
-  show() {
+  subscribe() {
+    const subscribes = [{
+      'action': "start-game",
+      'heandler': this.heandlerNotifications.bind(this),
+    }, ];
+
+    if (this.controller) {
+      this.controller.subscribeToNotifications(subscribes);
+    } else {
+      console.log("error");
+    }
+  }
+
+  heandlerEntryButton(event) {
+    if (event.keyCode === 13 && this.isShowCarusel) {
+      this.showGameArena();
+    }
+  }
+
+  showButtonEntryToArea() {
+    setTimeout(() => {
+      document.getElementById('progessBar').classList.add('hide');
+      this.buttonShowGameArena.classList.remove('hide');
+      window.onkeyup = this.heandlerEntryButton.bind(this);
+      this.isShowCarusel = true;
+    }, 2000);
+  }
+
+  showPreviewGameCarusel() {
+    const wrapper = this.areaSettings.wrapperCards;
+    const bgWrapperCarusel = configWrappers[wrapper].wrapperLink;
+    const wrapperCount = configWrappers[wrapper].frontSideLinks.length;
+
+    document.getElementById('caruselFrontSide')
+      .style.backgroundImage = bgWrapperCarusel;
+
+    this.caruselInterval = setInterval(() => {
+      const bgUrl = configWrappers[wrapper]
+        .frontSideLinks[Math.floor(Math.random() * wrapperCount)];
+
+      document.getElementById('caruselBackside')
+        .style.backgroundImage = bgUrl;
+
+      carusel.classList.add('active-card');
+      setTimeout(() => {
+        carusel.classList.remove('active-card');
+
+      }, 2500);
+
+    }, 4000);
+
+    this.carusel.classList.remove('hide');
+    this.showButtonEntryToArea();
+  }
+
+  hidePreviewGameCarusel() {
+    this.carusel.classList.add('hide');
+   
+    this.isShowCarusel = false;
+
+    clearInterval(this.caruselInterval);
+
+    this.buttonShowGameArena.classList.add('hide');
+    document.getElementById('progessBar').classList.remove('hide');
+  }
+
+  showGameArena() {
+    document.getElementById('settingsLevel').classList.add('hide');
+    this.hidePreviewGameCarusel();
     this.gameArea.classList.remove('hide');
+    
+    stopwatch.start();
+    soundPlayer.playStartSound();
+    this.controller.notifySubscribers("game-loaded");
   }
 
-  hide() {
+  hideGameArena() {
     this.gameArea.classList.add('hide');
   }
 
@@ -36,6 +113,80 @@ class GameArea {
 
   stopRain() {
     this.rain.classList.add('hide');
+  }
+
+  heandlerNotifications(notification) {
+    console.log("heandlerNotifications");
+    console.log(notification);
+
+    if (notification.action === "start-game") {
+      this.startGame();
+    }
+  }
+
+  heandlerClickArea(e) {
+    const currentSelectedCard = e.target.parentElement;
+
+    if (currentSelectedCard.classList.contains('game-card')) {
+
+      currentSelectedCard.classList.add('active-card', 'selected');
+
+      if (this.previousSelectedCard && this.previousSelectedCard !== currentSelectedCard) {
+
+        this.compareCards(this.previousSelectedCard, currentSelectedCard);
+        this.previousSelectedCard = null;
+
+      } else {
+        this.previousSelectedCard = currentSelectedCard;
+      }
+
+    }
+  }
+
+  setArenaBackground() {
+    const nameWrapper = this.areaSettings.wrapperCards;
+
+    if (configWrappers[nameWrapper].backgroundImageLink) {
+      const bgUrl = configWrappers[nameWrapper].backgroundImageLink;
+      document.body.style.backgroundImage = bgUrl;
+    }
+  }
+
+  setAreaSettings(playerSettings) {
+    this.areaSettings.level = playerSettings.level;
+    this.areaSettings.wrapperCards = playerSettings.wrapper;
+    this.setArenaBackground();
+
+    switch (playerSettings.level) {
+      case "E":
+        this.counterRemainingCards = 10;
+        this.areaSettings.countCards = 10;
+        this.areaSettings.cardsSizeStyle = "card-size-large";
+        break;
+      case "M":
+        this.counterRemainingCards = 18;
+        this.areaSettings.countCards = 18;
+        this.areaSettings.cardsSizeStyle = "card-size-medium";
+        break;
+      case "H":
+        this.counterRemainingCards = 24;
+        this.areaSettings.countCards = 24;
+        this.areaSettings.cardsSizeStyle = "card-size-small";
+        break;
+      default:
+        console.log(`We have a trouble!`);
+        break;
+    }
+  }
+
+  compareGameTimes() {
+    const currtentGameTime = stopwatch.getTimeSeconds();
+    console.log(currtentGameTime);
+    const playerLevel = this.playerSettings.level;
+    console.log(playerLevel);
+
+    this.controller
+      .store.compareGameTimesByLevel(currtentGameTime, playerLevel);
   }
 
   checkCounterRemainingCards() {
@@ -92,119 +243,6 @@ class GameArea {
       }, 1000);
     }
   }
-
-  heandlerClickArea(e) {
-    const currentSelectedCard = e.target.parentElement;
-
-    if (currentSelectedCard.classList.contains('game-card')) {
-
-      currentSelectedCard.classList.add('active-card', 'selected');
-
-      if (this.previousSelectedCard && this.previousSelectedCard !== currentSelectedCard) {
-
-        this.compareCards(this.previousSelectedCard, currentSelectedCard);
-        this.previousSelectedCard = null;
-
-      } else {
-        this.previousSelectedCard = currentSelectedCard;
-      }
-
-    }
-  }
-
-  setAreaSettings(playerSettings) {
-    this.areaSettings.level = playerSettings.level;
-    this.areaSettings.wrapperCards = playerSettings.wrapper;
-
-    switch (playerSettings.level) {
-      case "E":
-        this.counterRemainingCards = 10;
-        this.areaSettings.countCards = 10;
-        this.areaSettings.cardsSizeStyle = "card-size-large";
-        break;
-      case "M":
-        this.counterRemainingCards = 18;
-        this.areaSettings.countCards = 18;
-        this.areaSettings.cardsSizeStyle = "card-size-medium";
-        break;
-      case "H":
-        this.counterRemainingCards = 24;
-        this.areaSettings.countCards = 24;
-        this.areaSettings.cardsSizeStyle = "card-size-small";
-        break;
-      default:
-        console.log(`We have a trouble!`);
-        break;
-    }
-  }
-
-  compareGameTimes() {
-    const currtentGameTime = stopwatch.getTimeSeconds();
-    console.log(currtentGameTime);
-    const playerLevel = this.playerSettings.level;
-    console.log(playerLevel);
-
-    this.controller
-      .store.compareGameTimesByLevel(currtentGameTime, playerLevel);
-  }
-
-
-
-
-/**************Блин артур убери этот говнокод****************/
-
-  playerWon() {
-    console.log("playerWon");
-
-
-    soundPlayer.playWinSound();
-    this.runRain();
-    stopwatch.stop();
-    this.compareGameTimes();
-
-    setTimeout(() => {
-      let result = confirm("Congratulations! You won! Start new game?");
-      if (result) {
-        this.restartGame();
-      }
-    }, 5000);
-
-  }
-
-  pauseGame() {
-
-  }
-
-  resumeGame() {
-
-  }
-
-  restartGame() {
-    let result = confirm("Are you sure?");
-    if (result) {
-      soundPlayer.playStopWinSound();
-      this.stopRain();
-      stopwatch.stop();
-      stopwatch.reset();
-      this.gameArea.innerHTML = "";
-      this.gameArea.classList.add('hide');
-      document.getElementById('btnShowRatingSection').classList.add('hide');
-      document.getElementById('gameTime').classList.add('hide');
-      document.getElementById('menuGameSettings').classList.add('hide');
-      document.getElementById('settingsLevel').classList.add('hide');
-      document.getElementById('btnPreviousSection').classList.remove('hide');
-      this.controller.router.routToSettingsWrappers();
-    }
-
-  }
-
-
-/**************Блин артур убери этот говнокод****************/
-
-
-
-
-
 
   getWrapperBackgroundUrl() {
     const wrapperUrl = configWrappers[this.areaSettings.wrapperCards].wrapperLink;
@@ -286,16 +324,81 @@ class GameArea {
     }
   }
 
+
+
+
+
+  /**************Блин артур убери этот говнокод****************/
+
+  playerWon() {
+    console.log("playerWon");
+
+
+    soundPlayer.playWinSound();
+    this.runRain();
+    stopwatch.stop();
+    this.compareGameTimes();
+
+    setTimeout(() => {
+      let result = confirm("Congratulations! You won! Start new game?");
+      if (result) {
+        this.restartGame();
+      }
+    }, 5000);
+
+  }
+
+  pauseGame() {
+
+  }
+
+  resumeGame() {
+
+  }
+
+  restartGame() {
+    let result = confirm("Are you sure?");
+    if (result) {
+      soundPlayer.playStopWinSound();
+      this.stopRain();
+      stopwatch.stop();
+      stopwatch.reset();
+      this.gameArea.innerHTML = "";
+      this.gameArea.classList.add('hide');
+      document.getElementById('btnShowRatingSection').classList.add('hide');
+      document.getElementById('gameTime').classList.add('hide');
+      document.getElementById('menuGameSettings').classList.add('hide');
+      document.getElementById('settingsLevel').classList.add('hide');
+      document.getElementById('btnPreviousSection').classList.remove('hide');
+      this.controller.router.routToSettingsWrappers();
+    }
+
+  }
+
+
+  /**************Блин артур убери этот говнокод****************/
+
+
+
   startGame() {
     console.log("start game - Area");
     this.playerSettings = this.controller.store.getCurrentProfileSettings();
-    console.log(this.playerSettings);
 
     this.setAreaSettings(this.playerSettings);
+    this.showPreviewGameCarusel();
+
+    console.log(this.playerSettings);
     this.fillArena();
-    this.show();
-    soundPlayer.playStartSound();
-    stopwatch.start();
+
+
+    /*
+    setTimeout(()=>{
+      this.hidePreviewGameCarusel();
+      this.show();
+      
+      stopwatch.start();
+    },2000);*/
+
   }
 
 

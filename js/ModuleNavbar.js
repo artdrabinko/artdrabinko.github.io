@@ -26,6 +26,10 @@ class ModuleNavbar {
     this.menuGameSettings = document.getElementById('menuGameSettings');
     this.menuGameSettings.addEventListener('click', this.heandlerMenuGameSettings.bind(this), false);
 
+
+    this.btnLogout = document.getElementById('btnLogout');
+    this.btnLogout.addEventListener('click', this.heandlerButtonLogout.bind(this), false);
+
     this.labelGameTime = document.getElementById('gameTime');
 
     document.body.addEventListener('click', this.hideMenuGameSettings.bind(this), false);
@@ -69,13 +73,18 @@ class ModuleNavbar {
   }
 
   subscribe() {
+    //Проверь подписки
+    
     const subscribes = [{
       'action': "start-game",
       'heandler': this.heandlerNotifications.bind(this),
     }, {
+      'action': "game-loaded",
+      'heandler': this.heandlerNotifications.bind(this),
+    }, {
       'action': "all-settings-downloaded",
       'heandler': this.heandlerNotifications.bind(this),
-    } ];
+    }];
 
     if (this.controller) {
       this.controller.subscribeToNotifications(subscribes);
@@ -88,7 +97,21 @@ class ModuleNavbar {
     console.log("heandlerNotifications");
     console.log(notification);
 
+    if (notification.action === "all-settings-downloaded") {
+      this.btnShowRulesSection.classList.add('hide');
+      this.btnShowProfiles.classList.add('hide');
+
+      this.btnPreviousSection.classList.remove('hide');
+      this.buttonMenuGame.classList.remove('hide');
+    }
+
     if (notification.action === "start-game") {
+      console.log("start-game");
+      this.hide();
+
+    }
+
+    if (notification.action === "game-loaded") {
       this.btnShowProfiles.classList.add('hide');
       this.btnShowRulesSection.classList.add('hide');
       this.btnPreviousSection.classList.add('hide');
@@ -99,18 +122,16 @@ class ModuleNavbar {
 
       const firstName = this.controller.store.getCurrentProfileName();
       document.getElementById("userName").innerHTML = firstName;
+      this.show();
     }
 
-    if (notification.action === "all-settings-downloaded") {
-      this.btnShowRulesSection.classList.add('hide');
-      this.btnShowProfiles.classList.add('hide');
+    if (notification.action === "load-game") {
+      console.log("load-game");
 
-      this.btnPreviousSection.classList.remove('hide');
-      this.buttonMenuGame.classList.remove('hide');
     }
   }
 
-  heandlerMenuGameSettings(e){
+  heandlerMenuGameSettings(e) {
     e.stopPropagation();
   }
 
@@ -118,12 +139,22 @@ class ModuleNavbar {
     console.log("heandlerButtonMenuGame");
     e.stopPropagation();
     soundPlayer.playClickButtonSound();
-    
+
     if (this.menuGameSettings.classList.contains('hide')) {
       this.showMenuGameSettings();
     } else {
       this.hideMenuGameSettings();
     }
+  }
+
+  heandlerButtonLogout(){
+    this.menuGameSettings.classList.add('hide');
+    
+    function callback(){
+      location.reload();
+    }
+
+    confirmDialog.confirm("Are your shure?", callback.bind(this));
   }
 
   /*
@@ -136,8 +167,8 @@ class ModuleNavbar {
     this.controller.router.routBackToSettingsWrappers();
   }
 
-  hendlerButtonRatingSection(){
+  hendlerButtonRatingSection() {
     console.log('hendlerButtonRatingSection');
-    
+
   }
 }
