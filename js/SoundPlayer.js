@@ -86,14 +86,6 @@ class SoundPlayer {
     const winSound = "audio/groza.mp3";
     this.audio.src = winSound;
     this.audio.play();
-
-    setTimeout(() => {
-      const newAudio = new Audio();
-      const wolfSound = "audio/random/volk.mp3";
-      newAudio.src = wolfSound;
-      newAudio.play();
-
-    }, 3000);
   }
 
   playStopWinSound() {

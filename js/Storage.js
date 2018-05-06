@@ -6,7 +6,6 @@ class Storage {
     this.currentProfileId = null;
 
     this.loadData();
-    console.log(this.usersRating);
   }
 
   updateProfilesData() {
@@ -32,21 +31,11 @@ class Storage {
     };
   }
 
-  /* action - string is type a of actions "ADDED_PLAYER"
-   */
   notifySubscribers(action) {
     for (let index = 0; index < this.listSubscribers.length; index++) {
 
       const subscriber = this.listSubscribers[index];
 
-      if (subscriber["action"] === "ADDED_PLAYER") {
-
-        subscriber['heandler']({
-          "action": "ADDED_PLAYER",
-          "notice": "ADDED_PLAYER, hello from Store",
-        });
-
-      }
       if (subscriber["action"] === "update-rating") {
         subscriber['heandler']({
           "action": "update-rating",
@@ -58,8 +47,6 @@ class Storage {
   }
 
   subscribeToNotifications(action, heandler) {
-    console.log("subscribeToNotifications");
-
     this.listSubscribers.push({
       'action': action,
       'heandler': heandler,
@@ -82,7 +69,6 @@ class Storage {
     } else {
       this.listProfiles.push(player);
       localStorage.setItem("listProfiles", JSON.stringify(this.listProfiles));
-      //this.notifySubscribers("ADDED_PLAYER");
       return true;
     }
 
@@ -100,50 +86,53 @@ class Storage {
     this.currentProfileId = userId;
   }
 
-  deepCompareRating(gameTime, level) {
-    console.log("deepCompareRating");
+  getCopyCurrentProfile() {
+    var clone = {}; // новый пустой объект
 
-    function compareByLevel(usersA, usersB) {
-      return usersA.topScores[level] - usersB.topScores[level];
+    for (var key in this.listProfiles[this.currentProfileId]) {
+      clone[key] = this.listProfiles[this.currentProfileId][key];
     }
-
-    console.log(this.usersRating);
-    this.usersRating[level].sort(compareByLevel);
-    console.log(this.usersRating);
-
-    for (let index = 0; index < this.usersRating[level].length; index++) {
-      if (index > 10) {
-        this.usersRating[level][index].pop();
-      }
-    }
-    this.updateRatingData();
+    return clone;
   }
 
   compareTimeGlobalRating(gameTime, level) {
     const ratingByLevel = this.usersRating[level];
 
-    console.log(this.usersRating);
-    console.log(this.usersRating[level]);
-
-    if (ratingByLevel.length < 10) { //Т.е в массиве меньше 10 элементов
-      this.usersRating[level].push(this.listProfiles[this.currentProfileId]);
-      //this.updateRatingData();
-      this.deepCompareRating(gameTime, level);
-    } else { //в массиве больше 10 добовляй сортируй и режь 10 потом save
-      this.usersRating[level].push(this.listProfiles[this.currentProfileId]);
-      this.deepCompareRating(gameTime, level);
+    const timeRez = {
+      firstName: this.listProfiles[this.currentProfileId]['firstName'],
+      lastName: this.listProfiles[this.currentProfileId]['lastName'],
+      wrapper: this.listProfiles[this.currentProfileId].gameSettings['wrapper'],
+      time: gameTime,
     }
 
+    this.usersRating[level].push(timeRez);
+
+    function compareByLevel(usersA, usersB) {
+      return usersA.time - usersB.time;
+    }
+
+    this.usersRating[level].sort(compareByLevel);
+
+    if (this.usersRating[level].length > 10) {
+      this.usersRating[level] = this.usersRating[level].slice(0, 10);
+    }
+
+    this.updateRatingData();
   }
 
   compareGameTimesByLevel(gameTime, level) {
     const currentScores = this.listProfiles[this.currentProfileId].topScores;
-    console.log(currentScores);
-    console.log(level);
-    console.log(currentScores[level]);
-    if (!currentScores[level] || gameTime < currentScores[level]) {
+
+    if (currentScores[level] === 0) {
+
+      console.log("set first game time!");
+      this.setProfileScoreByLevel(gameTime, level);
+
+    } else if (gameTime < currentScores[level]) {
+
       console.log("new your record!");
       this.setProfileScoreByLevel(gameTime, level);
+
     } else {
       console.log("Бывало и лучше!");
     }
@@ -152,7 +141,6 @@ class Storage {
   setProfileScoreByLevel(gameTime, level) {
     this.listProfiles[this.currentProfileId].topScores[level] = gameTime;
     this.compareTimeGlobalRating(gameTime, level);
-    
   }
 
   setProfileGameWrapper(wrapperKey) {

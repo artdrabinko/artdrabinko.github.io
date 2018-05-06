@@ -12,7 +12,6 @@ class Controller {
     return arrayProfiles;
   }
 
-
   /* checked player data before request to Storage  */
   isCorrectUserData(player) {
     if (player.lastName.length < 2) {
@@ -51,17 +50,12 @@ class Controller {
     }
   }
 
-  /*
-  actions :
-  1 - "start-game"
-  */
   subscribeToNotifications(arraySubscribes) {
     const arr_len = arraySubscribes.length;
 
     for (let i = 0; i < arr_len; i++) {
       this.listSubscribers.push(arraySubscribes[i]);
     }
-    console.log(this.listSubscribers);
   }
 
 
@@ -86,7 +80,6 @@ class Controller {
 
             subscriber['heandler'](notification);
           }
-          console.log(action);
           break;
         case "all-settings-downloaded":
           if (subscriber.action == "all-settings-downloaded") {
@@ -97,7 +90,6 @@ class Controller {
 
             subscriber['heandler'](notification);
           }
-          console.log(action);
           break;
         case "game-loaded":
           if (subscriber.action == "game-loaded") {
@@ -108,23 +100,11 @@ class Controller {
 
             subscriber['heandler'](notification);
           }
-          console.log(action);
           break;
         default:
           console.log("i don't now this action!");
           break;
       }
-
-      if (subscriber["action"] === "ADDED_PLAYER") {
-        const notification = {
-          "action": "ADDED_PLAYER",
-          "notice": "ADDED_PLAYER, hello from Store",
-        }
-
-        subscriber['heandler'](notification);
-
-      }
-
     }
   }
 

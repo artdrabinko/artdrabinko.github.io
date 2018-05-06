@@ -52,10 +52,10 @@ class ModuleRating {
     tdLastName.innerHTML = profilePlayer["lastName"];
 
     let tdWrapper = document.createElement("td");
-    tdWrapper.innerHTML = profilePlayer.gameSettings.wrapper;
+    tdWrapper.innerHTML = profilePlayer['wrapper'];
 
     let tdTime = document.createElement("td");
-    tdTime.innerHTML = stopwatch.toHHMMSS(profilePlayer.topScores[this.selectedLevel]);
+    tdTime.innerHTML = stopwatch.toHHMMSS(profilePlayer['time']);
 
     profileRow.appendChild(number);
     profileRow.appendChild(tdFirstName);
@@ -115,6 +115,7 @@ class ModuleRating {
 
   show() {
     stopwatch.pause();
+    this.updateTable();
     soundPlayer.playShowCloseTableSound();
 
     this.ratingSection.classList.remove('hide');
@@ -137,7 +138,7 @@ class ModuleRating {
   render() {
     const that = this;
     function compareByLevel(usersA, usersB) {
-      return usersA.topScores[that.selectedLevel] - usersB.topScores[that.selectedLevel];
+      return usersA.time - usersB.time;
     }
 
     this.arrayProfilesByRating.sort(compareByLevel);

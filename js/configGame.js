@@ -11,7 +11,6 @@ const configWrappers = {
       "url('./images/girls/girl7.jpg')",
       "url('./images/girls/girl8.jpg')",
     ],
-    backgroundImageLink: "url('./images/girls/wrapper.jpg')",
   },
   "warcraft": {
     wrapperLink: "url('./images/warcraft/wrapper.jpg')",

@@ -82,7 +82,6 @@ class ModuleSettings {
   }
 
   loadCardWrappers() {
-    console.log("loadCardWrappers");
     const wrapperUrl = configWrappers;
 
     let counter = 1;
@@ -119,7 +118,6 @@ class ModuleSettings {
 
   previousSlideWrapper() {
     this.slideIsRun = true;
-    console.log("previousSlideWrapper");
     const listSlides = this.listWrappers.querySelectorAll('li');
     const list_len = listSlides.length;
 
@@ -145,7 +143,6 @@ class ModuleSettings {
 
   nextSlideWrapper() {
     this.slideIsRun = true;
-    console.log("nextSlideWrapper");
     const listSlides = this.listWrappers.querySelectorAll('li');
     const list_len = listSlides.length;
 
@@ -215,7 +212,6 @@ class ModuleSettings {
   }
 
   heandlerButtonStartGame() {
-    console.log("Moduele settings heandler ButtonStartGame - start game");
     soundPlayer.playClickButtonSound();
     
     this.hideSettigsLevel();
@@ -261,10 +257,7 @@ class ModuleSettings {
   }
 
   heandlerNotifications(notification) {
-    console.log("heandlerNotifications");
-
     if (notification.action === "all-settings-downloaded") {
-      //console.log(notification);
       const level = this.controller.store.getCurrentProfileLevel();
       this.setGameLevel(level);
 

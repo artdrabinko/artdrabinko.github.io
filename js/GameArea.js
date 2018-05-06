@@ -325,26 +325,20 @@ class GameArea {
   }
 
 
-
-
-
-  /**************Блин артур убери этот говнокод****************/
-
+  /**************Блин артур убери этот трэш****************/
   playerWon() {
-    console.log("playerWon");
-
-
     soundPlayer.playWinSound();
     this.runRain();
     stopwatch.stop();
     this.compareGameTimes();
 
     setTimeout(() => {
-      let result = confirm("Congratulations! You won! Start new game?");
-      if (result) {
+      function callback(){
         this.restartGame();
       }
-    }, 5000);
+  
+      confirmDialog.confirm("Congratulations! You won!<br/ > Start new game?", callback.bind(this));
+    }, 800);
 
   }
 
@@ -357,8 +351,7 @@ class GameArea {
   }
 
   restartGame() {
-    let result = confirm("Are you sure?");
-    if (result) {
+    function callback(){
       soundPlayer.playStopWinSound();
       this.stopRain();
       stopwatch.stop();
@@ -371,12 +364,12 @@ class GameArea {
       document.getElementById('settingsLevel').classList.add('hide');
       document.getElementById('btnPreviousSection').classList.remove('hide');
       this.controller.router.routToSettingsWrappers();
+    
     }
 
+    confirmDialog.confirm("Are you sure?", callback.bind(this));
   }
-
-
-  /**************Блин артур убери этот говнокод****************/
+  /**************Блин артур убери этот трэш****************/
 
 
 
@@ -386,19 +379,7 @@ class GameArea {
 
     this.setAreaSettings(this.playerSettings);
     this.showPreviewGameCarusel();
-
-    console.log(this.playerSettings);
     this.fillArena();
-
-
-    /*
-    setTimeout(()=>{
-      this.hidePreviewGameCarusel();
-      this.show();
-      
-      stopwatch.start();
-    },2000);*/
-
   }
 
 
