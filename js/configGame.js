@@ -1,16 +1,14 @@
 const configWrappers = {
-  "girls": {
-    wrapperLink: "url('./images/girls/wrapper.jpg')",
+  "blade runner": {
+    wrapperLink: "url('./images/blade runner/wrapper.jpg')",
     frontSideLinks: [
-      "url('./images/girls/girl1.jpg')",
-      "url('./images/girls/girl2.jpg')",
-      "url('./images/girls/girl3.jpg')",
-      "url('./images/girls/girl4.jpg')",
-      "url('./images/girls/girl5.jpg')",
-      "url('./images/girls/girl6.jpg')",
-      "url('./images/girls/girl7.jpg')",
-      "url('./images/girls/girl8.jpg')",
+      "url('./images/blade runner/runner1.jpg')",
+      "url('./images/blade runner/runner2.jpg')",
+      "url('./images/blade runner/runner3.jpg')",
+      "url('./images/blade runner/runner4.jpg')",
+      "url('./images/blade runner/runner5.jpg')",
     ],
+    backgroundImageLink: "url('./images/blade runner/bg.jpg')",
   },
   "warcraft": {
     wrapperLink: "url('./images/warcraft/wrapper.jpg')",
@@ -24,7 +22,7 @@ const configWrappers = {
       "url('./images/warcraft/warcraft7.jpg')",
       "url('./images/warcraft/warcraft8.jpg')",
     ],
-    backgroundImageLink: "url('https://images.alphacoders.com/112/112433.jpg')",
+    backgroundImageLink: "url('./images/warcraft/bg.jpg')",
   },
   "suicide squad": {
     wrapperLink: "url('./images/suicide squad/wrapper.jpg')",
@@ -36,7 +34,7 @@ const configWrappers = {
       "url('./images/suicide squad/suicide squad5.jpg')",
       "url('./images/suicide squad/suicide squad6.jpg')",
     ],
-    backgroundImageLink: "url('https://i.pinimg.com/originals/4c/c9/9e/4cc99e693a4af6700b0378295d79957f.jpg')"
+    backgroundImageLink: "url('./images/suicide squad/bg.jpg')",
   },
   "league of justice": {
     wrapperLink: "url('./images/league of justice/wrapper.jpg')",
@@ -48,7 +46,20 @@ const configWrappers = {
       "url('./images/league of justice/justice5.jpg')",
       "url('./images/league of justice/justice6.jpg')",
     ],
-    backgroundImageLink: "url('https://itc.ua/wp-content/uploads/2017/11/Justice-League.jpg')",
+    backgroundImageLink: "url('./images/league of justice/bg.jpg')",
+  },
+  "girls": {
+    wrapperLink: "url('./images/girls/wrapper.jpg')",
+    frontSideLinks: [
+      "url('./images/girls/girl1.jpg')",
+      "url('./images/girls/girl2.jpg')",
+      "url('./images/girls/girl3.jpg')",
+      "url('./images/girls/girl4.jpg')",
+      "url('./images/girls/girl5.jpg')",
+      "url('./images/girls/girl6.jpg')",
+      "url('./images/girls/girl7.jpg')",
+      "url('./images/girls/girl8.jpg')",
+    ],
   },
   "guardians": {
     wrapperLink: "url('./images/guardians the galaxy/wrapper.jpg')",
@@ -62,6 +73,6 @@ const configWrappers = {
       "url('./images/guardians the galaxy/guardian7.jpg')",
       "url('./images/guardians the galaxy/guardian8.jpg')",
     ],
-    backgroundImageLink: "url('https://images5.alphacoders.com/859/859417.jpg')",
+    backgroundImageLink: "url('./images/guardians the galaxy/bg.jpg')",
   }
 };

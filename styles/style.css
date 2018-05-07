@@ -23,7 +23,7 @@ body {
   padding: 0;
   margin: 0 auto;
   background-color: #2e2a2ada;
-  background: url('https://dcgamedevblog.files.wordpress.com/2014/09/bg1.jpg') no-repeat center center fixed;
+  background: url('../images/bg-main.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -96,10 +96,9 @@ section {
   -webkit-box-shadow: 0 4px 14px -1px rgba(221, 28, 28, 0.91);
   -moz-box-shadow: 0 4px 14px -1px rgba(221, 28, 28, 0.91);
   box-shadow: 0 4px 14px -1px rgba(221, 28, 28, 0.91);
-
 }
 
-.dialog-container p{
+.dialog-container p {
   margin: 0;
   text-align: center;
 }
@@ -107,25 +106,25 @@ section {
 .dialog-buttons-container {
   justify-content: space-between;
   margin-top: 20px;
-  padding: 0 30px 0 30px; 
+  padding: 0 30px 0 30px;
 }
 
 .effect-dialog-show {
   -webkit-animation: effect-dialog-show linear 0.8s;
   -webkit-animation-iteration-count: 1;
   -webkit-transform-origin: 50% 50%;
-  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/ 
+  -webkit-animation-fill-mode: forwards;
+  /*Chrome 16+, Safari 4+*/
 }
 
 @-webkit-keyframes effect-dialog-show {
   0% {
-    opacity:0;
-    -webkit-transform:  translate(0px,-500px)  ;
+    opacity: 0;
+    -webkit-transform: translate(0px, -500px);
   }
-
   100% {
-    opacity:1;
-    -webkit-transform:  translate(0px,0px)  ;
+    opacity: 1;
+    -webkit-transform: translate(0px, 0px);
   }
 }
 
@@ -497,17 +496,17 @@ settings-wrappers
   width: 180px;
   height: 260px;
   margin-bottom: 10px;
-  border: 2px solid #a89f9f;
+  border: 2px solid #5c5c5ede;
   border-radius: 4px;
-  background-color: #5a5454;
+  background-color: #575358;
   /* background-image: url('../images/hot/wrapper.jpg');*/
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  -webkit-box-shadow: 0 4px 14px -1px rgba(207, 208, 209, 0.91);
-  -moz-box-shadow: 0 4px 14px -1px rgba(207, 208, 209, 0.91);
-  box-shadow: 0 4px 14px -1px rgba(207, 208, 209, 0.91);
+  -webkit-box-shadow: 0 4px 14px -1px rgba(53, 52, 52, 0.91);
+  -moz-box-shadow: 0 4px 14px -1px rgba(53, 52, 52, 0.91);
+  box-shadow: 0 4px 14px -1px rgba(106, 104, 107, 0.61);
 }
 
 .wrapper-card-slider:hover,
@@ -1023,7 +1022,7 @@ settingsLevel
   width: 600px;
   align-items: center;
   border-radius: 2px;
-  margin: 6%;
+  margin: 10vh;
   padding: 20px;
   background-color: #0000009f;
   -webkit-box-shadow: 1px 2px 12px -1px rgba(45, 41, 41, 0.92);
@@ -1091,13 +1090,13 @@ settingsLevel
   transform: rotateY(180deg);
 }
 
-
 /*
 .progess-bar::before {
  
   background: transparent;
 
 }*/
+
 .progess-bar {
   position: relative;
   width: 315px;
@@ -1116,7 +1115,6 @@ settingsLevel
   width: 100%;
   height: 100%;
   color: #f2f2f2;
-  
 }
 
 .load-line {
@@ -1135,10 +1133,9 @@ settingsLevel
 
 @-webkit-keyframes load-line {
   0% {
-    -webkit-transform:  scaleX(0.10) ;
+    -webkit-transform: scaleX(0.10);
   }
   100% {
-    -webkit-transform:  scaleX(1.00) ;
+    -webkit-transform: scaleX(1.00);
   }
 }
-
